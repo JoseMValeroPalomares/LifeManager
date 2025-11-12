@@ -50,6 +50,7 @@ void mostrarRutasArchivos() {
 }
 
 void menu(bool &salir) {
+    system("cls");
     int opcion = 0;
     printCabecera("GESTOR DE VIDA");
     mostrarLineaMenu(1, "Gestor de tareas");
@@ -68,6 +69,7 @@ void menu(bool &salir) {
 
     switch (opcion) {
         case 1: {
+            system("cls");
             GestorTareas gestorT(rutaTareas);
             gestorT.cargarDeArchivo();
             gestorT.MostrarMenu();
@@ -75,6 +77,7 @@ void menu(bool &salir) {
             break;
         }
         case 2: {
+            system("cls");
             GestorEntrenos gestorE(rutaEntrenos);
             gestorE.cargarDeArchivo();
             gestorE.MostrarMenu();
@@ -82,6 +85,7 @@ void menu(bool &salir) {
             break;
         }
         case 3: {
+            system("cls");
             GestorGastos gestorG(rutaGastos);
             gestorG.cargarDeArchivo();
             gestorG.MostrarMenu();
@@ -89,6 +93,7 @@ void menu(bool &salir) {
             break;
         }
         case 4: {
+            system("cls");
             printCabecera("EDICION DE RUTAS DE ARCHIVO");
             mostrarRutasArchivos();
             std::cout << "\nElige la ruta a editar\n";

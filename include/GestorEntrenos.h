@@ -17,7 +17,6 @@ public:
     GestorEntrenos(const std::string& ruta) : Gestor("Entrenos", ruta) {}
 
     void MostrarMenu() override {
-
         int opcion = 0;
         do {
             std::cout << "Bienvenido al gestor de " << getName() << std::endl << std::endl;

@@ -18,7 +18,6 @@ public:
     GestorGastos(const std::string& ruta) : Gestor("Gastos", ruta) {}
 
     void MostrarMenu() override {
-
         int opcion = 0;
         do {
             std::cout << "Bienvenido al gestor de " << getName() << std::endl << std::endl;
