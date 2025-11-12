@@ -16,9 +16,7 @@ public:
         return name;
     }
 
-    virtual void MostrarMenu() const {
-        std::cout << "Bienvenido al gestor de " << getName() << std::endl;
-    }
+    virtual void MostrarMenu() = 0;
 
     // Funciones comunes, virtuales: se pueden sobrescribir si necesitas
     virtual void guardarEnArchivo() = 0; // virtual puro, obliga a implementar en hija

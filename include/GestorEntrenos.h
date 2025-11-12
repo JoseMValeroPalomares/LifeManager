@@ -16,9 +16,47 @@ class GestorEntrenos : public Gestor {
 public:
     GestorEntrenos(const std::string& ruta) : Gestor("Entrenos", ruta) {}
 
-    void guardarEnArchivo() override {
-        // Lógica de guardado
+    void MostrarMenu() override {
+
+        int opcion = 0;
+        do {
+            std::cout << "Bienvenido al gestor de " << getName() << std::endl << std::endl;
+            std::cout << "Elige una opcion: " << std::endl;
+            std::cout << "|-1: Chekear entrenos" << std::endl;
+            std::cout << "|-2: " << std::endl;
+            std::cout << "|-3: " << std::endl;
+            std::cout << "|-4: Volver atras" << std::endl << std::endl;
+            std::cin >> opcion;
+
+            switch (opcion) {
+                case 1:
+                    listar();
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                default:
+                    std::cout << "Opcion no valida" << std::endl;
+            }
+        } while (opcion != 4);
+
     }
+
+    void guardarEnArchivo() override {
+        std::ofstream archivo(rutaArchivo, std::ios::trunc);
+        if (!archivo) {
+            std::cerr << "Error al abrir archivo" << std::endl;
+            return;
+        }
+        for (const auto& entreno : entrenos) {
+            archivo << entreno.serializar() << std::endl;
+        }
+        archivo.close();
+    }
+
     void cargarDeArchivo() override {
         std::ifstream archivo(rutaArchivo);
         if (!archivo) {

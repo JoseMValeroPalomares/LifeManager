@@ -83,6 +83,16 @@ public:
         return false;
     }
 
+    std::string serializar() const {
+        return std::to_string(static_cast<int>(tipo)) + "," +
+               std::to_string(static_cast<int>(objetivo)) + "," +
+               std::to_string(duracionMin) + "," +
+               std::to_string(kcalQuemadas) + "," +
+               std::to_string(horasDormidas) + "," +
+               std::to_string(peso) + "," +
+               fecha;
+    }
+
 };
 
 #endif //LIFEMANAGER_ENTRENO_H

@@ -53,6 +53,15 @@ public:
         }
         return false;
     }
+
+    std::string serializar() const {
+        return name + "," +
+            std::to_string(cantidad) + "," +
+                std::to_string(static_cast<int>(tipo)) + "," +
+                    std::to_string(static_cast<int>(naturaleza)) + "," +
+                        descripcion;
+    }
+
 };
 
 #endif //LIFEMANAGER_GASTO_H

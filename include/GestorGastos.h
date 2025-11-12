@@ -17,8 +17,47 @@ class GestorGastos : public Gestor {
 public:
     GestorGastos(const std::string& ruta) : Gestor("Gastos", ruta) {}
 
+    void MostrarMenu() override {
+
+        int opcion = 0;
+        do {
+            std::cout << "Bienvenido al gestor de " << getName() << std::endl << std::endl;
+            std::cout << "Elige una opcion: " << std::endl;
+            std::cout << "|-1: Chekear todo" << std::endl;
+            std::cout << "|-2: Chekear tus deudas" << std::endl;
+            std::cout << "|-3: Chekear tu dinero" << std::endl;
+            std::cout << "|-4: Eliminar" << std::endl;
+            std::cout << "|-5: Agregar" << std::endl;
+            std::cout << "|-6: Volver atras" << std::endl << std::endl;
+            std::cin >> opcion;
+
+            switch (opcion) {
+                case 1:
+                    listar();
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                default:
+                    std::cout << "Opcion no valida" << std::endl;
+            }
+        } while (opcion != 4);
+
+    }
+
     void guardarEnArchivo() override {
-        // Lógica de guardado
+        std::ofstream archivo(rutaArchivo, std::ios::trunc);
+        if (!archivo) {
+            std::cerr << "Error al abrir archivo" << std::endl;
+            return;
+        }
+        for (const auto& gasto : gastos) {
+            archivo << gasto.serializar() << std::endl;
+        }
+        archivo.close();
     }
     void cargarDeArchivo() override {
         std::ifstream archivo(rutaArchivo);
