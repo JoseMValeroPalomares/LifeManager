@@ -7,6 +7,7 @@
 
 
 #include <string>
+#include <sstream>
 
 enum class ObjetivoEntreno { Volumen, Definicion, Mantenimiento };
 enum class TipoEntreno { Gym, Judo, Cardio, Ayuno, Otro };
@@ -50,6 +51,38 @@ public:
     void setHorasDormidas(int h) { horasDormidas = h; }
     void setPeso(float p) { peso = p; }
     void setFecha(const std::string& f) { fecha = f; }
+
+    bool deserializar(const std::string& linea) {
+        std::istringstream iss(linea);
+        std::string dato;
+
+        int tipoInt, objetivoInt;
+        int dur, kcal, horas;
+        float pesoF;
+        std::string fechaStr;
+
+        // Extraemos cada campo por separado
+        if (
+            std::getline(iss, dato, ',') && std::istringstream(dato) >> tipoInt &&
+            std::getline(iss, dato, ',') && std::istringstream(dato) >> objetivoInt &&
+            std::getline(iss, dato, ',') && std::istringstream(dato) >> dur &&
+            std::getline(iss, dato, ',') && std::istringstream(dato) >> kcal &&
+            std::getline(iss, dato, ',') && std::istringstream(dato) >> horas &&
+            std::getline(iss, dato, ',') && std::istringstream(dato) >> pesoF &&
+            std::getline(iss, fechaStr)
+        ) {
+            tipo = static_cast<TipoEntreno>(tipoInt);
+            objetivo = static_cast<ObjetivoEntreno>(objetivoInt);
+            duracionMin = dur;
+            kcalQuemadas = kcal;
+            horasDormidas = horas;
+            peso = pesoF;
+            fecha = fechaStr;
+            return true;
+        }
+        return false;
+    }
+
 };
 
 #endif //LIFEMANAGER_ENTRENO_H

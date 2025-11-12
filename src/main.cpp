@@ -16,19 +16,21 @@ int main() {
 
     switch (opcion) {
         case 1: {
-            GestorTareas gestorT("tareas.txt");
+            GestorTareas gestorT("C:/Users/josev/Pictures/Cosas/Proyectos/LifeManager/tareas.txt");
             gestorT.MostrarMenu();
-            // Aquí iría la lógica del menú específico de tareas
+            gestorT.cargarDeArchivo();
             break;
         }
         case 2: {
-            GestorEntrenos gestorE("entrenos.txt");
+            GestorEntrenos gestorE("C:/Users/josev/Pictures/Cosas/Proyectos/LifeManager/entrenos.txt");
             gestorE.MostrarMenu();
+            gestorE.cargarDeArchivo();
             break;
         }
         case 3: {
-            GestorGastos gestorG("gastos.txt");
+            GestorGastos gestorG("C:/Users/josev/Pictures/Cosas/Proyectos/LifeManager/gastos.txt");
             gestorG.MostrarMenu();
+            gestorG.cargarDeArchivo();
             break;
         }
         default:

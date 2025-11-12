@@ -1,36 +1,58 @@
-//
-// Created by josev on 11/11/2025.
-//
-
 #ifndef LIFEMANAGER_GASTO_H
 #define LIFEMANAGER_GASTO_H
 
 #include <string>
+#include <sstream>
 
-enum class TipoGasto { Propio, Deuda };
+enum class TipoGasto { Propio, Debo, MeDeben };
 enum class NaturalezaGasto { Fisico, Digital };
 
 class Gasto {
 private:
-    int cantidad;           // Valor del gasto
-    TipoGasto tipo;       // "Propio" o "Deuda"
-    NaturalezaGasto naturaleza; // "Fisico" o "Digital"
-    std::string descripcion;// Breve info (opcional)
+    std::string name;            // Nombre
+    int cantidad;                // Valor del gasto
+    TipoGasto tipo;              // "Propio", "Debo", "MeDeben"
+    NaturalezaGasto naturaleza;  // "Fisico" o "Digital"
+    std::string descripcion;     // Breve info (opcional)
 
 public:
-    Gasto (int c = 0, TipoGasto t = TipoGasto::Propio, NaturalezaGasto n = NaturalezaGasto::Digital, std::string d = "") :
-        cantidad(c), tipo(t), naturaleza(n), descripcion(d) {}
+    Gasto(std::string na = "", int c = 0, TipoGasto t = TipoGasto::Propio,
+          NaturalezaGasto n = NaturalezaGasto::Digital, std::string d = "") :
+          name(na), cantidad(c), tipo(t), naturaleza(n), descripcion(d) {}
 
-    int getCantidad() const {return cantidad;}
-    TipoGasto getTipo() const {return tipo;}
-    NaturalezaGasto getNaturaleza() const {return naturaleza;}
-    std::string getDescripcion() const {return descripcion;}
+    std::string getName() const { return name; }
+    int getCantidad() const { return cantidad; }
+    TipoGasto getTipo() const { return tipo; }
+    NaturalezaGasto getNaturaleza() const { return naturaleza; }
+    std::string getDescripcion() const { return descripcion; }
 
-    void setCantidad(int C) {cantidad = C;}
-    void setTipo(TipoGasto T) {tipo = T;}
-    void setNaturaleza(NaturalezaGasto N) {naturaleza = N;}
-    void setDescripcion(std::string D) {descripcion = D;}
+    void setName(const std::string& n) { name = n; }
+    void setCantidad(int C) { cantidad = C; }
+    void setTipo(TipoGasto T) { tipo = T; }
+    void setNaturaleza(NaturalezaGasto N) { naturaleza = N; }
+    void setDescripcion(const std::string& D) { descripcion = D; }
+
+    bool deserializar(const std::string& linea) {
+        std::istringstream iss(linea);
+        std::string dato;
+
+        int cantidadInt, tipoInt, naturalezaInt;
+        // Formato: name,cantidad,tipo,naturaleza,descripcion
+
+        if (
+            std::getline(iss, name, ',') &&
+            std::getline(iss, dato, ',') && std::istringstream(dato) >> cantidadInt &&
+            std::getline(iss, dato, ',') && std::istringstream(dato) >> tipoInt &&
+            std::getline(iss, dato, ',') && std::istringstream(dato) >> naturalezaInt &&
+            std::getline(iss, descripcion)
+        ) {
+            cantidad = cantidadInt;
+            tipo = static_cast<TipoGasto>(tipoInt);
+            naturaleza = static_cast<NaturalezaGasto>(naturalezaInt);
+            return true;
+        }
+        return false;
+    }
 };
-
 
 #endif //LIFEMANAGER_GASTO_H
